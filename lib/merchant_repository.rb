@@ -1,0 +1,2 @@
+class MerchantRespository
+end
