@@ -1,8 +1,8 @@
-require_relative "./base_repository"
-
 class CustomerRepository < BaseRepository
+  @all_data = []
+
   def initialize
-    @table_columns = ["id", "first_name", "last_name", "created_at", "updated_at"]
+    @model = Customer
     super
   end
 end

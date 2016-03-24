@@ -1,11 +1,9 @@
-class Customer
-  attr_reader :id, :first_name, :last_name, :created_at, :updated_at
+class Customer < Base
+  def self.columns
+    [:id, :first_name, :last_name, :created_at, :updated_at]
+  end
 
-  def initialize(options = {})
-    @id = options[:id]
-    @first_name = options[:first_name]
-    @last_name = options[:last_name]
-    @created_at = options[:created_at]
-    @updated_at = options[:updated_at]
+  def invoices
+    InvoiceRepository.find_all_by_customer_id(self.id)
   end
 end
