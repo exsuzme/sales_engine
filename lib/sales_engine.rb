@@ -26,11 +26,11 @@ class SalesEngine
 
   def startup
     create_customer_repository
-    # TODO: make these use the class methods instead of instance methods for adding items
-    create_invoice_item_repository
     create_invoice_repository
-    # Note: we were trying to get customer.invoices to work
-    binding.pry
+    create_invoice_item_repository
+    create_item_repository
+    create_merchant_repository
+    create_transaction_repository
   end
 
   private
@@ -59,6 +59,33 @@ class SalesEngine
     invoices = csv_without_header.each do |row|
       invoice_row = Invoice.new(id: row[INDEX], customer_id: row[1], merchant_id: row[2], status: row[3], created_at: row[4], updated_at: row[5])
       InvoiceRepository.add(invoice_row)
+    end
+  end
+
+  def create_item_repository
+    csv = "/Users/suzannejacobson/Documents/JumpstartTutorials/sales_engine/data/items.csv"
+    csv_without_header = format_csv(csv)
+    items = csv_without_header.each do |row|
+      item_row = Item.new(id: row[INDEX], name: row[1], description: row[2], unit_price: row[3], merchant_id: row[4], created_at: row[5], updated_at: row[6])
+      ItemRepository.add(item_row)
+    end
+  end
+
+  def create_merchant_repository
+    csv = "/Users/suzannejacobson/Documents/JumpstartTutorials/sales_engine/data/merchants.csv"
+    csv_without_header = format_csv(csv)
+    merchants = csv_without_header.each do |row|
+      merchant_row = Merchant.new(id: row[INDEX], name: row[1], created_at: row[2], updated_at: row[3])
+      MerchantRepository.add(merchant_row)
+    end
+  end
+
+  def create_transaction_repository
+    csv = "/Users/suzannejacobson/Documents/JumpstartTutorials/sales_engine/data/transactions.csv"
+    csv_without_header = format_csv(csv)
+    transactions = csv_without_header.each do |row|
+      transaction_row = Transaction.new(id: row[INDEX], invoice_id: row[1], credit_card_number: row[2], credit_card_expiration_date: row[3], result: row[4], created_at: row[5], updated_at: row[6])
+      TransactionRepository.add(transaction_row)
     end
   end
 end

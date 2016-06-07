@@ -1,7 +1,6 @@
 class InvoiceItemRepository < BaseRepository
   @all_data = []
-  def initialize
-    @model = InvoiceItem
-    super
-  end
+  @@model = InvoiceItem
+
+  self.define_finder_methods
 end

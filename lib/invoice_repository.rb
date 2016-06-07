@@ -1,8 +1,6 @@
 class InvoiceRepository < BaseRepository
   @all_data = []
+  @@model = Invoice
 
-  def initialize
-    @model = Invoice
-    super
-  end
+  self.define_finder_methods
 end

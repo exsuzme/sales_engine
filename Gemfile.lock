@@ -6,6 +6,8 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    byebug (4.0.5)
+      columnize (= 0.9.0)
     cane (2.6.2)
       parallel
     codeclimate-engine-rb (0.3.1)
@@ -13,6 +15,7 @@ GEM
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
+    columnize (0.9.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
@@ -28,6 +31,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.1.0)
+      byebug (~> 4.0)
+      pry (~> 0.10)
     rainbow (2.1.0)
     rake (10.5.0)
     reek (3.10.0)
@@ -63,6 +69,7 @@ DEPENDENCIES
   cane
   minitest
   pry
+  pry-byebug
   rake
   reek
   rspec

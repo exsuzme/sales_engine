@@ -1,8 +1,6 @@
 class CustomerRepository < BaseRepository
   @all_data = []
+  @@model = Customer
 
-  def initialize
-    @model = Customer
-    super
-  end
+  self.define_finder_methods
 end

@@ -1,21 +1,18 @@
 class BaseRepository
   @all_data = []
+  @@model = nil
 
-  def initialize
-    # TODO: Make these class method definitions instead of instance methods
-    @model.columns.each do |column|
-      self.class.send(:define_method, "find_all_by_#{column}") do |value|
-        check_all_records(column, value)
-      end
-
-      self.class.send(:define_method, "find_by_#{column}") do |value|
-        check_all_records(column, value).first
-      end
+  def self.define_finder_methods
+    @@model.columns.each do |column|
+      BaseRepository.create_find_all_by_method(column)
+      BaseRepository.create_find_by_method(column)
     end
   end
 
-  def self.add(item)
-    @all_data << item
+  def self.add(*items)
+    items.each do |item|
+      @all_data << item
+    end
   end
 
   def self.all
@@ -26,17 +23,38 @@ class BaseRepository
     @all_data.sample
   end
 
+  def self.clear
+    @all_data = []
+  end
+
   private
 
-  def metaclass
+  def self.metaclass
     class << self
       self
     end
   end
 
-  def check_all_records(column, value)
-    @all_data.select do |customer|
-      customer.send(column).downcase == value.downcase
+  def BaseRepository.create_find_by_method(column)
+    self.metaclass.instance_eval do
+      define_method("find_by_#{column}") do |value|
+        self.check_all_records(column, value).first
+      end
+    end
+  end
+
+  def BaseRepository.create_find_all_by_method(column)
+    self.metaclass.instance_eval do
+      define_method("find_all_by_#{column}") do |value|
+        self.check_all_records(column, value)
+      end
+    end
+  end
+
+
+  def self.check_all_records(column, value)
+    @all_data.select do |model|
+      model.send(column).downcase == value.downcase
     end
   end
 end
