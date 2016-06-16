@@ -1,3 +1,5 @@
+require "date"
+
 class MerchantRepository < BaseRepository
   @all_data = []
   @@model = Merchant
@@ -11,4 +13,11 @@ class MerchantRepository < BaseRepository
       -merchant.invoice_total
     end.shift(x)
   end
+
+  def self.most_items(x)
+    merchants = self.all.sort_by do |merchant|
+      -merchant.items.count
+    end.shift(x)
+  end
+
 end

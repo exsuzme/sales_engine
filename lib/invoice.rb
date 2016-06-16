@@ -30,4 +30,3 @@ class Invoice < Base
     MerchantRepository.find_by_id(self.merchant_id)
   end
 end
-
